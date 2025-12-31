@@ -50,17 +50,17 @@ byte Digit::Value() {
 }
 void Digit::drawPixel(uint16_t x, uint16_t y, uint16_t c)
 {
-  dma_display->drawPixel(xOffset + x, height - (y + yOffset), c);
+  virtualDisp->drawPixel(xOffset + x, height - (y + yOffset), c);
 }
 
 void Digit::drawLine(uint16_t x, uint16_t y, uint16_t x2, uint16_t y2, uint16_t c)
 {
-  dma_display->drawLine(xOffset + x, height - (y + yOffset), xOffset + x2, height - (y2 + yOffset), c);
+  virtualDisp->drawLine(xOffset + x, height - (y + yOffset), xOffset + x2, height - (y2 + yOffset), c);
 }
 
 void Digit::drawFillRect(uint16_t x, uint16_t y, uint16_t w, uint16_t h, uint16_t c)
 {
-  dma_display->fillRect(xOffset + x, height - (y + yOffset), w,h, c);
+  virtualDisp->fillRect(xOffset + x, height - (y + yOffset), w,h, c);
 }
 
 void Digit::DrawColon(uint16_t c)

@@ -1,5 +1,13 @@
 #ifndef CONFIG_H
 #define CONFIG_H
+#define YELLOW_COLOR  ((0xFF & 0xF8) << 8) | ((0xFF & 0xFC) << 3) | (0x00 >> 3)
+#define CYAN_COLOR    ((0x00 & 0xF8) << 8) | ((0xFF & 0xFC) << 3) | (0xFF >> 3)
+#define WHITE_COLOR   ((0xFF & 0xF8) << 8) | ((0xFF & 0xFC) << 3) | (0xFF >> 3)
+#define GREEN_COLOR   ((0x00 & 0xF8) << 8) | ((0xFF & 0xFC) << 3) | (0x00 >> 3)
+#define BLUE_COLOR    ((0x00 & 0xF8) << 8) | ((0x00 & 0xFC) << 3) | (0xFF >> 3)
+#define RED_COLOR     ((0xFF & 0xF8) << 8) | ((0x00 & 0xFC) << 3) | (0x00 >> 3)
+#define YELLOW_COLOR_ALTERNATE display.color565(255,255,0)
+#define CYAN_COLOR_ALTERNATE   display.color565(0,255,255)
 
 //#define MQTT_USE_SSL 1
 //#define USE_ANDROID_AP 1
@@ -8,9 +16,12 @@
 #define NTP_REFRESH_INTERVAL_SEC 3600
 
 // Timezone difference from GMT, expressed in seconds
-#define TIMEZONE_DELTA_SEC 7200
+
+#define TIMEZONE_DELTA_SEC 19800
+//#define TIMEZONE_DELTA_SEC 66400
+
 // DST delta to apply
-#define TIMEZONE_DST_SEC 3600
+#define TIMEZONE_DST_SEC 0
 
 // How long are informational messages kept on screen
 #define LOG_MESSAGE_PERSISTENCE_MSEC 30000
@@ -28,33 +39,34 @@
 
 // Screen positioning settings
 // Panel size
-#define PANEL_WIDTH 128
-#define PANEL_HEIGHT 64
+#define PANEL_WIDTH 80
+#define PANEL_HEIGHT 80
 
 // Clock
-#define CLOCK_X 3
-#define CLOCK_Y 21
+#define CLOCK_X 1
+#define CLOCK_Y 50
 #define CLOCK_SEGMENT_HEIGHT 8
 #define CLOCK_SEGMENT_WIDTH 8
-#define CLOCK_SEGMENT_SPACING 5
+#define CLOCK_SEGMENT_SPACING 4
 #define CLOCK_WIDTH 6*(CLOCK_SEGMENT_WIDTH+CLOCK_SEGMENT_SPACING)+4
 #define CLOCK_HEIGHT 2*CLOCK_SEGMENT_HEIGHT+3
 //color565 == ((red & 0xF8) << 8) | ((green & 0xFC) << 3) | (blue >> 3)
-#define CLOCK_DIGIT_COLOR  ((0x00 & 0xF8) << 8) | ((0xFF & 0xFC) << 3) | (0xFF >> 3)
+#define CLOCK_DIGIT_COLOR  CYAN_COLOR
 //Delay in ms for clock animation - should be below 30ms for a segment size of 8
-#define CLOCK_ANIMATION_DELAY_MSEC 20
+#define CLOCK_ANIMATION_DELAY_MSEC 28
 
 // Day of week
-#define DOW_X 90
-#define DOW_Y 21
-#define DOW_COLOR ((0x00 & 0xF8) << 8) | ((0x40 & 0xFC) << 3) | (0xFF >> 3)
+#define DOW_X 20
+#define DOW_Y 16
+//#define DOW_COLOR ((0x00 & 0xF8) << 8) | ((0x40 & 0xFC) << 3) | (0xFF >> 3)
+#define DOW_COLOR CLOCK_DIGIT_COLOR
 // Date
-#define DATE_X DOW_X
-#define DATE_Y DOW_Y+11
+#define DATE_X 5
+#define DATE_Y DOW_Y+19
 #define DATE_COLOR DOW_COLOR
 //Width and height are for both DATE and DOW
-#define DATE_WIDTH 40
-#define DATE_HEIGHT 18
+#define DATE_WIDTH 80
+#define DATE_HEIGHT 40
 
 
 // Weather sensor data

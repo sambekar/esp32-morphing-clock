@@ -142,8 +142,8 @@ void drawTestBitmap() {
   drawBitmap(BITMAP_X+18, BITMAP_Y, 8, 8, rain_8x8);
   drawBitmap(BITMAP_X+27, BITMAP_Y, 8, 8, showers_8x8);
   drawBitmap(BITMAP_X+36, BITMAP_Y, 8, 8, snow_8x8);
-  drawBitmap(BITMAP_X+45, BITMAP_Y, 8, 8, storm_8x8);*/
-  drawBitmap(BITMAP_X+58, BITMAP_Y, 12, 20, minion);
+  drawBitmap(BITMAP_X+45, BITMAP_Y, 8, 8, storm_8x8);
+  drawBitmap(BITMAP_X+58, BITMAP_Y, 12, 20, minion);*/
 }
 
 // Draw one of the available weather icons in the specified space
@@ -176,16 +176,16 @@ void displayTodaysWeather() {
 }
 
 void displayTodaysTempRange() {
-  dma_display->fillRect(TEMPRANGE_X, TEMPRANGE_Y, TEMPRANGE_WIDTH, TEMPRANGE_HEIGHT, 0);
-  dma_display->setTextSize(1);     // size 1 == 8 pixels high
-  dma_display->setTextWrap(false); // Don't wrap at end of line - will do ourselves
-  dma_display->setTextColor(TEMPRANGE_COLOR);
+  virtualDisp->fillRect(TEMPRANGE_X, TEMPRANGE_Y, TEMPRANGE_WIDTH, TEMPRANGE_HEIGHT, 0);
+  virtualDisp->setTextSize(1);     // size 1 == 8 pixels high
+  virtualDisp->setTextWrap(false); // Don't wrap at end of line - will do ourselves
+  virtualDisp->setTextColor(TEMPRANGE_COLOR);
 
-  dma_display->setCursor(TEMPRANGE_X, TEMPRANGE_Y);   
-  dma_display->printf("%3d/%3d C", minTempToday, maxTempToday);
+  virtualDisp->setCursor(TEMPRANGE_X, TEMPRANGE_Y);   
+  virtualDisp->printf("%3d/%3d C", minTempToday, maxTempToday);
   
   // Draw the degree symbol manually
-  dma_display->fillRect(TEMPRANGE_X + 44, TEMPRANGE_Y, 2, 2, TEMPRANGE_COLOR);
+  virtualDisp->fillRect(TEMPRANGE_X + 44, TEMPRANGE_Y, 2, 2, TEMPRANGE_COLOR);
 }
 
 void displayWeatherForecast() {
@@ -195,9 +195,9 @@ void displayWeatherForecast() {
 }
 
 void displayWeatherData() {
-  displayTodaysWeather();
-  displayTodaysTempRange();
-  displayWeatherForecast();
+  //displayTodaysWeather();
+  //displayTodaysTempRange();
+  //displayWeatherForecast();
 }
 
 //Source: https://github.com/witnessmenow/LED-Matrix-Display-Examples/blob/master/LED-Matrix-Mario-Display/LED-Matrix-Mario-Display.ino
@@ -205,7 +205,7 @@ void drawBitmap(int startx, int starty, int width, int height, uint32_t *bitmap)
   int counter = 0;
   for (int yy = 0; yy < height; yy++) {
     for (int xx = 0; xx < width; xx++) {
-      dma_display->drawPixel(startx+xx, starty+yy, color565(bitmap[counter]));
+      virtualDisp->drawPixel(startx+xx, starty+yy, color565(bitmap[counter]));
       counter++;
     }
   }
@@ -217,10 +217,10 @@ void drawBitmap(int startx, int starty, int width, int height, uint32_t *bitmap,
   if (enlarged) {
     for (int yy = 0; yy < height; yy++) {
       for (int xx = 0; xx < width; xx++) {
-        dma_display->drawPixel(startx+2*xx, starty+2*yy, color565(bitmap[counter]));
-        dma_display->drawPixel(startx+2*xx+1, starty+2*yy, color565(bitmap[counter]));
-        dma_display->drawPixel(startx+2*xx, starty+2*yy+1, color565(bitmap[counter]));
-        dma_display->drawPixel(startx+2*xx+1, starty+2*yy+1, color565(bitmap[counter]));
+        virtualDisp->drawPixel(startx+2*xx, starty+2*yy, color565(bitmap[counter]));
+        virtualDisp->drawPixel(startx+2*xx+1, starty+2*yy, color565(bitmap[counter]));
+        virtualDisp->drawPixel(startx+2*xx, starty+2*yy+1, color565(bitmap[counter]));
+        virtualDisp->drawPixel(startx+2*xx+1, starty+2*yy+1, color565(bitmap[counter]));
         counter++;
       }
     }
@@ -230,7 +230,7 @@ void drawBitmap(int startx, int starty, int width, int height, uint32_t *bitmap,
 
 void drawHeartBeat() {
   if (!heartBeat) {
-    dma_display->fillRect(HEARTBEAT_X, HEARTBEAT_Y, 8, 8, 0);
+    virtualDisp->fillRect(HEARTBEAT_X, HEARTBEAT_Y, 8, 8, 0);
   }
   else {
     drawBitmap(HEARTBEAT_X, HEARTBEAT_Y, 8, 8, heart_8x8);

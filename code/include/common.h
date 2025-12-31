@@ -9,6 +9,24 @@
 #include <PubSubClient.h>
 #include <ESPNtpClient.h>
 
+
+
+#include <ESP32-HUB75-MatrixPanel-I2S-DMA.h>
+#include <ESP32-HUB75-VirtualMatrixPanel_T.hpp>
+
+// ---------------- Panel configuration ----------------
+#define PANEL_RES_X        80
+#define PANEL_RES_Y        40
+#define VDISP_NUM_ROWS     2
+#define VDISP_NUM_COLS     1
+#define PANEL_CHAIN_TYPE   CHAIN_BOTTOM_RIGHT_UP
+#define PANEL_SCAN_TYPE    FOUR_SCAN_40PX_HIGH
+
+using MyScanTypeMapping = ScanTypeMapping<PANEL_SCAN_TYPE>;
+
+// ---------------- Extern declaration ----------------
+extern VirtualMatrixPanel_T<PANEL_CHAIN_TYPE, MyScanTypeMapping>* virtualDisp;
+
 #ifdef MQTT_USE_SSL
 #include <HTTPClient.h>
 extern WiFiClientSecure wifiClient;

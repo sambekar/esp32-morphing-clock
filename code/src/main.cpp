@@ -70,7 +70,7 @@ void setup(){
   lastWeatherUpdate = millis();
   logStatusMessage("Weather recvd!");
 
-  logStatusMessage("MQTT connect...");
+  //logStatusMessage("MQTT connect...");
 
   #ifdef MQTT_USE_SSL
   wifiClient.setCACert(server_crt_str);       
@@ -78,20 +78,20 @@ void setup(){
   wifiClient.setPrivateKey(client_key_str);   
   #endif
 
-  client.setServer( MQTT_SERVER, MQTT_PORT );
-  client.setCallback(mqtt_callback);
-  reconnect();
-  lastStatusSend = 0;
-  logStatusMessage("MQTT done!");
+  //client.setServer( MQTT_SERVER, MQTT_PORT );
+  //client.setCallback(mqtt_callback);
+  //reconnect();
+  //lastStatusSend = 0;
+  //logStatusMessage("MQTT done!");
 
-  logStatusMessage("Initialize TSL...");
-  tslConfigureSensor();
-  logStatusMessage("TSL done!");
+  //logStatusMessage("Initialize TSL...");
+  //tslConfigureSensor();
+  //logStatusMessage("TSL done!");
 
-  logStatusMessage("Setting up watchdog...");
+  //logStatusMessage("Setting up watchdog...");
   esp_task_wdt_init(WDT_TIMEOUT, true);
   esp_task_wdt_add(NULL);
-  logStatusMessage("Woof!");
+  //logStatusMessage("Woof!");
 
   //logStatusMessage(WiFi.localIP().toString());
   drawTestBitmap();
@@ -109,16 +109,16 @@ void loop() {
     WiFi.reconnect();
   }
 
-  if ( !client.connected() ) {
-    logStatusMessage("MQTT lost");
-    reconnect();
-  }
-  client.loop();
+  //if ( !client.connected() ) {
+   // logStatusMessage("MQTT lost");
+   // reconnect();
+  //}
+  //client.loop();
 
   // Periodically refresh NTP time
   if (millis() - lastNTPUpdate > 1000*NTP_REFRESH_INTERVAL_SEC) {
     logStatusMessage("NTP Refresh");
-    configTime(TIMEZONE_DELTA_SEC, TIMEZONE_DST_SEC, "ro.pool.ntp.org");
+    configTime(TIMEZONE_DELTA_SEC, TIMEZONE_DST_SEC, "in.pool.ntp.org");
     lastNTPUpdate = millis();
   }
 
@@ -143,25 +143,25 @@ void loop() {
   }
 
   // Do we have new sensor data?
-  if (newSensorData) {
+  //if (newSensorData) {
     //logStatusMessage("Sensor data in");
-    displaySensorData();
-    displayTodaysWeather();
-  }
+    //displaySensorData();
+    //displayTodaysWeather();
+  //}
 
   // Is the sensor data too old?
-  if (millis() - lastSensorRead > 1000*SENSOR_DEAD_INTERVAL_SEC) {
-    sensorDead = true;
-    displaySensorData();
-    displayTodaysWeather();
-  }
+  //if (millis() - lastSensorRead > 1000*SENSOR_DEAD_INTERVAL_SEC) {
+    //sensorDead = true;
+    //displaySensorData();
+    //displayTodaysWeather();
+  //}
 
   heartBeat = !heartBeat;
-  drawHeartBeat();
-  if (millis() - lastLightRead > 1000*LIGHT_READ_INTERVAL_SEC) {
-    lightUpdate();
+  //drawHeartBeat();
+  //if (millis() - lastLightRead > 1000*LIGHT_READ_INTERVAL_SEC) {
+    //lightUpdate();
     //displayTodaysWeather();
-  } 
+  //} 
 
   //Reset the watchdog timer as long as the main task is running
   esp_task_wdt_reset();

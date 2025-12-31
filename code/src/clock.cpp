@@ -2,6 +2,8 @@
 #include "digit.h"
 #include "rgb_display.h"
 #include "clock.h"
+#include <Fonts/FreeSans9pt7b.h>
+
 
 /*
 Digit digit0(0, 80 - 1 - 11*1, CLOCK_Y, CLOCK_DIGIT_COLOR);
@@ -72,15 +74,21 @@ void displayClock() {
 }
 
 void displayDate() {
-    dma_display->fillRect(DOW_X, DOW_Y, DATE_WIDTH, DATE_HEIGHT, 0);
+    virtualDisp->fillRect(0, 0, 80, 40, dma_display->color565(0, 0, 0));
+    virtualDisp->fillRect(0, 0, 80, 1, RED_COLOR);
+    virtualDisp->fillRect(0, 0, 1, 80, RED_COLOR);
+    virtualDisp->fillRect(0, 39, 80, 2, RED_COLOR);
+    virtualDisp->fillRect(0, 79, 80, 1, RED_COLOR);
+    virtualDisp->fillRect(79, 0, 1, 80, RED_COLOR);
 
-    dma_display->setTextSize(1);     // size 1 == 8 pixels high
-    dma_display->setTextWrap(false); // Don't wrap at end of line - will do ourselves
-    dma_display->setTextColor(DATE_COLOR);
+    virtualDisp->setTextSize(1); 
+    virtualDisp->setFont(&FreeSans9pt7b);    // size 1 == 8 pixels high
+    virtualDisp->setTextWrap(false); // Don't wrap at end of line - will do ourselves
+    virtualDisp->setTextColor(DATE_COLOR);
 
-    dma_display->setCursor(DOW_X, DOW_Y);
-    dma_display->print(&timeinfo, "%a");
+    virtualDisp->setCursor(DOW_X, DOW_Y);
+    virtualDisp->print(&timeinfo, "%a");
 
-    dma_display->setCursor(DATE_X, DATE_Y);
-    dma_display->print(&timeinfo, "%d.%m");
+    virtualDisp->setCursor(DATE_X, DATE_Y);
+    virtualDisp->print(&timeinfo, "%d/%m/%y");
 }
